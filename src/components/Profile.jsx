@@ -2,12 +2,17 @@ import { useSelector } from "react-redux";
 import EditProfile from "./EditProfile";
 
 const Profile = () => {
-  const user = useSelector((store) => store.user);
+  const data = useSelector((store) => store.user);
 
+  if (!data?.user) {
+    return (
+      <div>Loading....</div>
+    )
+  }
   return (
-    user && (
+    data && data.user && (
       <div>
-        <EditProfile user={user?.user} />
+        <EditProfile user={data?.user} />
       </div>
     )
   );
