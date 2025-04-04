@@ -9,7 +9,7 @@ const Chat = () => {
   const { targetUserId } = useParams();
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
-  const user = useSelector((store) => store.user);
+  const user = useSelector((store) => store?.user?.user);
   const userId = user?._id;
 
   const fetchChatMessages = async () => {
@@ -57,12 +57,16 @@ const Chat = () => {
 
   const sendMessage = () => {
     const socket = createSocketConnection();
-    socket.emit("sendMessage", {
+    const obj = { 
       firstName: user.firstName,
       lastName: user.lastName,
       userId,
       targetUserId,
-      text: newMessage,
+      text: newMessage
+    }
+    debugger
+    socket.emit("sendMessage", {
+     ...obj,
     });
     setNewMessage("");
   };
@@ -93,8 +97,9 @@ const Chat = () => {
       <div className="p-5 border-t border-gray-600 flex items-center gap-2">
         <input
           value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-          className="flex-1 border border-gray-500 text-white rounded p-2"
+          onChange={(e) => {
+            setNewMessage(e.target.value)}}
+          className="flex-1 border border-gray-500 rounded p-2"
         ></input>
         <button onClick={sendMessage} className="btn btn-secondary">
           Send
