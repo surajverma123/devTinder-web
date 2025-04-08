@@ -50,8 +50,12 @@ const Chat = () => {
       setMessages((messages) => [...messages, { firstName, lastName, text }]);
     });
 
-    return () => {
-      socket.disconnect();
+    return async() => {
+        socket.emit("user-disconnecting", { userId });        
+        // Give the event a moment to reach the server
+        setTimeout(() => {
+          socket.disconnect();
+        }, 10000); // 100ms should be enough
     };
   }, [userId, targetUserId]);
 
