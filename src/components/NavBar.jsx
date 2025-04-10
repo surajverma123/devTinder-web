@@ -1,8 +1,10 @@
 import axios from "axios";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 import { removeUser } from "../utils/userSlice";
+import { createSocketConnection } from "../utils/socket";
 
 const NavBar = () => {
   const user = useSelector((store) => store.user);
@@ -19,6 +21,23 @@ const NavBar = () => {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    const socket = createSocketConnection();
+    
+    socket.on("new-notification", (notification) => {
+      console.log("Notification:", notification);
+      // Show toast or badge
+      // toast(`${notification.title}: ${notification.message}`);
+  
+      // // Or add to your notification list
+      // setNotifications((prev) => [notification, ...prev]);
+    });
+  
+    return () => {
+      socket.off("new-notification");
+    };
+  }, []);
 
   return (
     <div className="navbar bg-base-300">

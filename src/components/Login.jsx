@@ -26,6 +26,8 @@ const Login = () => {
         { withCredentials: true }
       );
       dispatch(addUser(res.data));
+      // const socket = createSocketConnection()();
+      // // As soon as the page loaded, the socket connection is made and joinChat event is emitted
       return navigate("/");
     } catch (err) {
       setError(err?.response?.data?.message || "Something went wrong");
