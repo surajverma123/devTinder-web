@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Body from "./components/Body";
-import Login from "./components/Login";
+import Login from "./components/AuthForm/Login";
 import Profile from "./components/Profile";
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
@@ -9,15 +11,31 @@ import Connections from "./components/Connections";
 import Requests from "./components/Requests";
 import Premium from "./components/Premium";
 import Chat from "./components/Chat";
+import SignUp from "./components/AuthForm/SignUp";
 
 function App() {
   return (
-    <>
-      <Provider store={appStore}>
-        <BrowserRouter basename="/">
+    <Provider store={appStore}>
+      <BrowserRouter basename="/">
+        <>
+          {/* Toast container is added at the root level */}
+          <ToastContainer 
+            position="top-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={true}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+          />
+          
           <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
             <Route path="/" element={<Body />}>
-              <Route path="/login" element={<Login />} />
               <Route path="/" element={<Feed />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/connections" element={<Connections />} />
@@ -26,9 +44,9 @@ function App() {
               <Route path="/chat/:targetUserId" element={<Chat />} />
             </Route>
           </Routes>
-        </BrowserRouter>
-      </Provider>
-    </>
+        </>
+      </BrowserRouter>
+    </Provider>
   );
 }
 
