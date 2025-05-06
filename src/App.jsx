@@ -13,6 +13,7 @@ import Premium from "./components/Premium";
 import Chat from "./components/Chat";
 import SignUp from "./components/AuthForm/SignUp";
 import ForgotPassword from "./components/AuthForm/ForgotPassword";
+import ResetPassword from "./components/AuthForm/ResetPassword";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
 
             <Route path="/" element={<Body />}>
               <Route path="/" element={<Feed />} />
