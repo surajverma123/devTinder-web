@@ -1,9 +1,10 @@
 import axios from "axios";
-import { BASE_URL } from "../utils/constants";
+import { BASE_URL } from "../../utils/constants";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addConnections } from "../utils/conectionSlice";
+import { addConnections } from "../../utils/conectionSlice";
 import { Link } from "react-router-dom";
+import Layout from "./Layout";
 
 const Connections = () => {
   const connections = useSelector((store) => store.connections);
@@ -37,30 +38,17 @@ const Connections = () => {
           connection;
 
         return (
-          <div
+          <Layout
             key={_id}
-            className="flex m-4 p-4 rounded-lg bg-base-300 w-1/2 mx-auto"
-          >
-            <div>
-              <img
-                alt="photo"
-                className="w-20 h-20 rounded-full object-cover"
-                src={photoUrl}
-              />
-            </div>
-            <div className="text-left mx-4 ">
-              <h2 className="font-bold text-xl">
-                {firstName + " " + lastName}
-              </h2>
-              {age && gender && <p>{age + ", " + gender}</p>}
-              <p>{about}</p>
-              {status === "online" && <p><span className="inline-block w-3 h-3 rounded-full bg-green-500"></span>&nbsp;Online</p>}
-              {status ==="offline" && <p><span className="inline-block w-3 h-3 rounded-full bg-red-400"></span>&nbsp;Offline</p>}
-            </div>
-            <Link to={"/chat/" + _id}>
-              <button className="btn btn-primary">Chat</button>
-            </Link>
-          </div>
+            firstName={firstName}
+            lastName={lastName}
+            photoUrl={photoUrl}
+            age={age}
+            gender={gender}
+            about={about}
+            status={status}
+            _id={ _id}
+          />
         );
       })}
     </div>
