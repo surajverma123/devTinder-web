@@ -31,7 +31,12 @@ const ForgotPassword = () => {
 
         if (res?.data?.status === 200) {
           toast.success(res?.data?.message)
-          navigate("/reset-password");
+          navigate('/reset-password', {
+            state: {
+              email: values.emailId, // ✅ or any data you want to pass
+            },
+          });
+          
         }
 
       } catch (err) {

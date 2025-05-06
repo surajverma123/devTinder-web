@@ -1,7 +1,8 @@
 import React from "react";
+import { useLocation } from 'react-router-dom';
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "../../utils/constants";
 import { toast } from "react-toastify";
@@ -12,6 +13,9 @@ import { addUser } from "../../utils/userSlice";
 const ResetPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const email = location.state?.email;
 
   // Formik Configuration
   const formik = useFormik({
@@ -29,7 +33,11 @@ const ResetPassword = () => {
       try {
         const res = await axios.post(
           BASE_URL + "/auth/reset-password",
-          values,
+          {
+            otp: values.otp,
+            password: values.password,
+            email,
+          },
           { withCredentials: true }
         );
 
