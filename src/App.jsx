@@ -1,6 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
+import { ThemeProvider } from "@material-tailwind/react";
+ 
 import 'react-toastify/dist/ReactToastify.css';
+
 import Body from "./components/Body";
 import Login from "./components/AuthForm/Login";
 import Profile from "./components/Profile";
@@ -17,41 +20,43 @@ import ResetPassword from "./components/AuthForm/ResetPassword";
 
 function App() {
   return (
-    <Provider store={appStore}>
-      <BrowserRouter basename="/">
-        <>
-          {/* Toast container is added at the root level */}
-          <ToastContainer 
-            position="top-right"
-            autoClose={3000}
-            hideProgressBar={false}
-            newestOnTop={true}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="colored"
-          />
-          
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/reset-password" element={<ResetPassword />} />
+    <ThemeProvider>
+      <Provider store={appStore}>
+        <BrowserRouter basename="/">
+          <>
+            {/* Toast container is added at the root level */}
+            <ToastContainer 
+              position="top-right"
+              autoClose={3000}
+              hideProgressBar={false}
+              newestOnTop={true}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="colored"
+            />
+            
+            <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
 
-            <Route path="/" element={<Body />}>
-              <Route path="/" element={<Feed />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/connections" element={<Connections />} />
-              <Route path="/requests" element={<Requests />} />
-              <Route path="/premium" element={<Premium />} />
-              <Route path="/chat/:targetUserId" element={<Chat />} />
-            </Route>
-          </Routes>
-        </>
-      </BrowserRouter>
-    </Provider>
+              <Route path="/" element={<Body />}>
+                <Route path="/" element={<Feed />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/connections" element={<Connections />} />
+                <Route path="/requests" element={<Requests />} />
+                <Route path="/premium" element={<Premium />} />
+                <Route path="/chat/:targetUserId" element={<Chat />} />
+              </Route>
+            </Routes>
+          </>
+        </BrowserRouter>
+      </Provider>
+    </ThemeProvider>
   );
 }
 
