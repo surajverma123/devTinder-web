@@ -33,11 +33,12 @@ const Login = () => {
 
         if (res?.data?.status === 200) {
           toast.success(res?.data?.message)
+          sessionStorage.setItem("token",res?.data?.token)
 
           dispatch(addUser(res.data));
           // const socket = createSocketConnection()();
           // // As soon as the page loaded, the socket connection is made and joinChat event is emitted
-          navigate("/");
+          navigate("/dashboard");
         }
 
       } catch (err) {

@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import { ThemeProvider } from "@material-tailwind/react";
- 
+
 import 'react-toastify/dist/ReactToastify.css';
 
 import Body from "./components/Body";
@@ -17,6 +17,8 @@ import Chat from "./components/Chat";
 import SignUp from "./components/AuthForm/SignUp";
 import ForgotPassword from "./components/AuthForm/ForgotPassword";
 import ResetPassword from "./components/AuthForm/ResetPassword";
+import Dashboard from "./pages/Dashboard";
+import ConnectedUsers from "./pages/Connection/ConnectedUser";
 
 function App() {
   return (
@@ -25,7 +27,7 @@ function App() {
         <BrowserRouter basename="/">
           <>
             {/* Toast container is added at the root level */}
-            <ToastContainer 
+            <ToastContainer
               position="top-right"
               autoClose={3000}
               hideProgressBar={false}
@@ -37,7 +39,7 @@ function App() {
               pauseOnHover
               theme="colored"
             />
-            
+
             <Routes>
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
@@ -46,6 +48,8 @@ function App() {
 
               <Route path="/" element={<Body />}>
                 <Route path="/" element={<Feed />} />
+                <Route path="/connections" element={<ConnectedUsers/>} />
+                <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/connections" element={<Connections />} />
                 <Route path="/requests" element={<Requests />} />
