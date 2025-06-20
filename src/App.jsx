@@ -45,11 +45,11 @@ function App() {
               <Route path="/signup" element={<SignUp />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/reset-password" element={<ResetPassword />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/connections" element={<ConnectedUsers/>} />
 
               <Route path="/" element={<Body />}>
                 <Route path="/" element={<Feed />} />
+                <Route path="/connections" element={<ConnectedUsers/>} />
+                <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/connections" element={<Connections />} />
                 <Route path="/requests" element={<Requests />} />

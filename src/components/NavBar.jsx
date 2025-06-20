@@ -42,7 +42,7 @@ const NavBar = () => {
   return (
     <div className="navbar bg-base-300">
       <div className="flex-1">
-        <Link to="/" className="btn btn-ghost text-xl">
+        <Link to="/dashboard" className="btn btn-ghost text-xl">
           👩‍💻 Bich-Pati
         </Link>
       </div>
