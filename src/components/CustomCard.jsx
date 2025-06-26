@@ -35,7 +35,7 @@ const handleSendRequest = async (status, userId) => {
       </CardHeader>
       <CardBody>
         <Typography variant="h5" color="blue-gray" className="mb-2">
-          {user.user.fullName} [{user.user.age && user.user.gender && user.user.gender + ", " + user.user.age}]
+          {user.user.firstName} {user.user.lastName}[{user.user.age && user.user.gender && user.user.gender + ", " + user.user.age}]
         </Typography>
         <Typography>
           {user.user.about}

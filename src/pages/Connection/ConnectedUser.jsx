@@ -1,14 +1,42 @@
 import { ArrowLeft, ChevronDown } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { useEffect } from "react";
+
 import { sampleUsers } from "../../MockData";
 import ConnectionListItem from "./ConnectionListItem";
 import { Button } from "../../components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../utils/constants";
+import { addConnections } from "../../utils/conectionSlice";
+
 
 const ConnectedUsers = () => {
 	const navigate = useNavigate()
+  const dispatch = useDispatch();
+	
+	const connections = useSelector((store) => store.connections);
+	const profileImage = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=350";
+	
+  const fetchConnections = async () => {
+    try {
+      const res = await axios.get(BASE_URL + "/user/connections", {
+        withCredentials: true,
+      });
+      dispatch(addConnections(res.data.data));
+    } catch (err) {
+      // Handle Error Case
+      console.error(err);
+    }
+  };
+
 	const handleBackClick = () => {
 		navigate('/dashboard');
 	};
+
+		useEffect(() => {
+			fetchConnections();
+		}, []);
 
 	return (
 		<div className="container mx-auto px-4 py-8">
@@ -50,18 +78,18 @@ const ConnectedUsers = () => {
 			{/* Connected Users List */}
 			<div className="grid grid-cols-1 gap-4 mb-8">
 				{
-					sampleUsers?.map((user) => (
+					connections && connections.map((user) => (
 						<ConnectionListItem
-							key={user.id}
-							id={user.id}
-							name={user.fullName}
+							key={user._id}
+							id={user._id}
+							name={user.fullName || `${user.firstName} ${user.lastName}`}
 							age={user.age}
 							occupation={user.occupation || ""}
 							distance={user.distance || 0}
-							profileImage={user.profileImage || ""}
+							profileImage={user.profileImage || profileImage }
 							isOnline={user.isOnline}
 							matchPercentage={user.matchPercentage || 0}
-							interests={user.interests}
+							interests={user.interests ||[]}
 							bio={user.bio || ""}
 							lastMessageTime={user.lastMessageTime || ""}
 						/>
