@@ -1,6 +1,7 @@
 import { MessageCircle, UserPlus, Heart } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+
 import { Button } from "../../components/ui/button";
-// import { Button } from "@/components/ui/button";
 
 const ConnectionListItem = ({
   id,
@@ -15,6 +16,18 @@ const ConnectionListItem = ({
   bio,
   lastMessageTime
 }) => {
+  const navigate = useNavigate()
+
+  const chatClickHandler=() => {
+    const URL = `/chat/${id}`;
+    navigate(URL)
+  }
+
+  const onHandleViewProfile = () => {
+    const URL = `/profile/${id}`;
+    navigate(URL)
+  }
+
   return (
     <div className="bg-white rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.05)] p-4 transition-all hover:shadow-[0_10px_25px_rgba(0,0,0,0.1)]">
       <div className="flex flex-col sm:flex-row gap-4">
@@ -54,13 +67,13 @@ const ConnectionListItem = ({
               <MessageCircle className="inline-block mr-1 w-4 h-4" /> Last message: {lastMessageTime}
             </div>
             <div className="flex space-x-2">
-              <Button variant="outline" size="sm" className="text-medium-gray hover:text-primary hover:border-primary">
+              <Button variant="outline" size="sm" className="text-medium-gray hover:text-primary hover:border-primary" onClick={onHandleViewProfile}>
                 <UserPlus className="mr-1 w-4 h-4" /> View Profile
               </Button>
               <Button variant="outline" size="sm" className="text-medium-gray hover:text-primary hover:border-primary">
                 <Heart className="mr-1 w-4 h-4" /> Favorite
               </Button>
-              <Button size="sm" className="bg-primary hover:bg-primary/90 text-white">
+              <Button size="sm" className="bg-primary hover:bg-primary/90 text-white" onClick={chatClickHandler}>
                 <MessageCircle className="mr-1 w-4 h-4" /> Message
               </Button>
             </div>
