@@ -1,7 +1,7 @@
 import { ArrowLeft, ChevronDown } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { sampleUsers } from "../../MockData";
 import ConnectionListItem from "./ConnectionListItem";
@@ -9,14 +9,15 @@ import { Button } from "../../components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../utils/constants";
 import { addConnections } from "../../utils/conectionSlice";
+import AllConnections from "./AllConnections";
 
 
 const ConnectedUsers = () => {
 	const navigate = useNavigate()
   const dispatch = useDispatch();
-	
+	const [currentTab, setCurrentTab] = useState(0);
+
 	const connections = useSelector((store) => store.connections);
-	const profileImage = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=350";
 	
   const fetchConnections = async () => {
     try {
@@ -77,34 +78,7 @@ const ConnectedUsers = () => {
 
 			{/* Connected Users List */}
 			<div className="grid grid-cols-1 gap-4 mb-8">
-				{
-					connections && connections.map((user) => (
-						<ConnectionListItem
-							key={user._id}
-							id={user._id}
-							name={user.fullName || `${user.firstName} ${user.lastName}`}
-							age={user.age}
-							occupation={user.occupation || ""}
-							distance={user.distance || 0}
-							profileImage={user.profileImage || profileImage }
-							isOnline={user.isOnline}
-							matchPercentage={user.matchPercentage || 0}
-							interests={user.interests ||[]}
-							bio={user.bio || ""}
-							lastMessageTime={user.lastMessageTime || ""}
-						/>
-					))
-				}
-
-				{/* Load More Button */}
-				<div className="flex justify-center mt-6">
-					<Button
-						variant="outline"
-						className="flex items-center px-6 py-3 border border-gray-100 hover:border-primary text-medium-gray hover:text-primary font-semibold"
-					>
-						Load More <ChevronDown className="ml-1 w-4 h-4" />
-					</Button>
-				</div>
+				{currentTab === 0 && (<AllConnections connections={connections} />)}
 			</div>
 		</div>
 	);
