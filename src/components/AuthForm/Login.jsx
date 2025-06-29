@@ -38,7 +38,7 @@ const Login = () => {
           dispatch(addUser(res.data));
           // const socket = createSocketConnection()();
           // // As soon as the page loaded, the socket connection is made and joinChat event is emitted
-          navigate("/");
+          navigate("/dashboard");
         }
 
       } catch (err) {
