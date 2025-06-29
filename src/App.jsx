@@ -19,7 +19,7 @@ import ForgotPassword from "./components/AuthForm/ForgotPassword";
 import ResetPassword from "./components/AuthForm/ResetPassword";
 import Dashboard from "./pages/Dashboard";
 import ConnectedUsers from "./pages/Connection/ConnectedUser";
-
+import LandingPage from "./landingPage/App"
 function App() {
   return (
     <ThemeProvider>
@@ -41,12 +41,13 @@ function App() {
             />
 
             <Routes>
+              <Route path="/landing" element={<LandingPage/>} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/connections" element={<ConnectedUsers/>} />
+              <Route path="/connections" element={<ConnectedUsers />} />
 
               <Route path="/" element={<Body />}>
                 <Route path="/" element={<Feed />} />
